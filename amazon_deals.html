@@ -56,7 +56,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* All the CSS styles from the original file remain the same */
         * {
             margin: 0;
             padding: 0;
@@ -1612,8 +1611,7 @@
         const CONFIG = {
             GITHUB_USERNAME: 'dkapoore', // Replace with your GitHub username
             GITHUB_REPO: 'dkapoore.github.io', // Replace with your repository name
-            DATA_FILE: 'data_amazon_deals.json',
-            PAGE_TYPE: 'amazon_deals'
+            DATA_FILE: 'data_amazon_deals.json'
         };
 
         // Global variables
@@ -1639,6 +1637,8 @@
             try {
                 // Try to load from GitHub first
                 const githubUrl = `https://${CONFIG.GITHUB_USERNAME}.github.io/${CONFIG.GITHUB_REPO}/${CONFIG.DATA_FILE}`;
+                console.log('Loading data from:', githubUrl);
+                
                 const response = await fetch(githubUrl);
                 
                 if (response.ok) {
@@ -1647,7 +1647,7 @@
                     categories = data.categories || [];
                     console.log(`Loaded ${products.length} products from GitHub`);
                 } else {
-                    throw new Error('GitHub data not available');
+                    throw new Error(`GitHub data not available: ${response.status}`);
                 }
             } catch (error) {
                 console.warn('Could not load data from GitHub, trying localStorage:', error.message);
